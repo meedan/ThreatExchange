@@ -9,3 +9,10 @@ print(type(cos_features),len(cos_features[0][0]))
 sin_features=vid.getSinFeatures()
 print(type(sin_features),len(sin_features[0][0]))
 
+vid2=tmkpy.hashVideo("../sample-videos/chair-22-sd-grey-bar.mp4","/usr/bin/ffmpeg")
+level1=tmkpy.TMKFeatureVectors_computeLevel1Score(vid,vid2)
+level2=tmkpy.TMKFeatureVectors_computeLevel2Score(vid,vid2)
+
+print(level1)
+print(level2)
+
