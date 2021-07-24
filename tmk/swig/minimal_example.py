@@ -13,6 +13,6 @@ vid2=tmkpy.hashVideo("../sample-videos/chair-22-sd-grey-bar.mp4","/usr/bin/ffmpe
 level1=tmkpy.TMKFeatureVectors_computeLevel1Score(vid,vid2)
 level2=tmkpy.TMKFeatureVectors_computeLevel2Score(vid,vid2)
 
-print(level1)
-print(level2)
+print("level-1 score",level1)
+print("level-2 score",level2)
 
