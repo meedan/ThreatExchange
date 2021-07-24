@@ -45,3 +45,34 @@ facebook::tmk::algo::TMKFeatureVectors hashVideo(std::string inputVideoFileName,
 }
 
 
+facebook::tmk::algo::TMKFeatureVectors createTMKFeatureVectors(
+      int framesPerSecond, // provenance
+      int frameFeatureCount, // informational
+      const facebook::tmk::algo::Periods& periods,
+      const facebook::tmk::algo::FourierCoefficients& fourierCoefficients,
+      const facebook::tmk::algo::FrameFeature& pureAverageFeature,
+      const facebook::tmk::algo::FeaturesByPeriodsAndFourierCoefficients& cosFeatures,
+      const facebook::tmk::algo::FeaturesByPeriodsAndFourierCoefficients& sinFeatures) {
+  int resampleFramesPerSecond = 15; // TMK default
+  std::string frameFeatureAlgorithmName = "pdqf";
+
+  bool verbose = false;
+
+  facebook::tmk::algo::TMKFeatureVectors tmkFeatureVectors; //std::shared_ptr
+
+  facebook::tmk::io::TMKFramewiseAlgorithm tmkFramewiseAlgorithm =
+    facebook::tmk::io::algoFromLowercaseName(frameFeatureAlgorithmName);
+
+  tmkFeatureVectors=*(facebook::tmk::algo::TMKFeatureVectors::tryCreateFromPrecomputed(
+      tmkFramewiseAlgorithm, // provenance
+      framesPerSecond, // provenance
+      frameFeatureCount, // informational
+      periods,
+      fourierCoefficients,
+      pureAverageFeature,
+      cosFeatures,
+      sinFeatures));
+
+
+  return tmkFeatureVectors;
+}
