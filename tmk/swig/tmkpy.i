@@ -19,6 +19,7 @@ facebook::tmk::algo::TMKFeatureVectors createTMKFeatureVectors(
 %template() std::vector<int>;
 %template() std::vector<std::vector<std::vector<float>>>;
 %include <../cpp/algo/tmkfv.h>
+%include <../cpp/io/tmkiotypes.h>
 facebook::tmk::algo::TMKFeatureVectors hashVideo(std::string inputVideoFileName, std::string ffmpegPath);
 facebook::tmk::algo::TMKFeatureVectors createTMKFeatureVectors(
       int framesPerSecond, // provenance
