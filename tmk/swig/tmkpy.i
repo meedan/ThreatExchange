@@ -6,6 +6,19 @@
 #include <tmk/swig/tmkpy.h>
 %}
 
+//https://stackoverflow.com/a/14073400/620113
+//http://swig.10945.n7.nabble.com/SWIG-Exception-Handler-td8737.html
+%include <exception.i>
+%exception {
+	try {
+		$action
+	} catch (const std::exception& e) {
+		SWIG_exception(SWIG_RuntimeError, e.what());
+	} catch (...) {
+		SWIG_exception(SWIG_RuntimeError, "unknown exception");
+	}
+}
+
 %import "std_vector.i"
 %template() std::vector<float>;
 %template() std::vector<int>;
@@ -14,3 +27,5 @@
 %include <../cpp/algo/tmkfv.h>
 %include <../cpp/io/tmkiotypes.h>
 %include <tmkpy.h>
+
+
