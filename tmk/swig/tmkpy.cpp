@@ -4,6 +4,7 @@
 
 #include <tmk/cpp/hashing/filehasher.h>
 #include <iostream>
+#include <thread>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -111,13 +112,17 @@ vector<float> query(TMKFeatureVectors needle, vector<string> haystackFilenames, 
 		int haystackSize=haystackFilenames.size();
 		int numPerThread=(int)ceil(haystackSize/(double)numThreads);
 		int start,end;
+		std::vector<std::thread> threads;
 		for (int i=0; i<numThreads; i++) {
 			start=i*numPerThread;
 			end=(i+1)*numPerThread;
 			if (start>haystackSize) continue;
 			if (end>haystackSize) end=haystackSize;
-			//TODO: This should be done in a new thread
-			_query_worker(needle,haystackFilenames,level2scores,start, end);
+			threads.push_back(std::thread(_query_worker,needle,std::ref(haystackFilenames),std::ref(level2scores),start,end));
+		}
+		//Wait for all threads to finish
+		for (auto &th : threads) {
+			th.join();
 		}
 	}
 
@@ -126,7 +131,7 @@ vector<float> query(TMKFeatureVectors needle, vector<string> haystackFilenames, 
 }
 
 void _query_worker(TMKFeatureVectors needle, vector<string> haystackFilenames, vector<float> &level2scores, int start, int end) {
-	fprintf(stderr,"_query_worker: %i %i\n",start,end); //TODO: Temporary debug info
+	//fprintf(stderr,"_query_worker: %i %i\n",start,end); //TODO: Temporary debug info
 	shared_ptr<TMKFeatureVectors> vid2;
 	for (int i=start; i<end; i++) {
 		//fprintf(stderr,"_query_worker: %i %s\n",i,haystackFilenames[i].c_str());
