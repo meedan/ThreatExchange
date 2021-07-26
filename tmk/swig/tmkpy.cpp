@@ -53,11 +53,8 @@ TMKFeatureVectors createTMKFeatureVectors(
 		const FrameFeature& pureAverageFeature,
 		const FeaturesByPeriodsAndFourierCoefficients& cosFeatures,
 		const FeaturesByPeriodsAndFourierCoefficients& sinFeatures) {
-		
-	int resampleFramesPerSecond = 15; // TMK default
-	string frameFeatureAlgorithmName = "pdqf";
 	
-	bool verbose = false;
+	string frameFeatureAlgorithmName = "pdqf";
 	
 	TMKFeatureVectors tmkFeatureVectors; //std::shared_ptr
 	
