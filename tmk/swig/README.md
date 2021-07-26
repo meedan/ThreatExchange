@@ -1,12 +1,33 @@
 # SWIG Python Bindings
 
-First build the TMK C++ code per the instructions at ../cpp/ (namely run `make` in that directory). 
-You may need to upodate the location of ffmpeg in Makefile
+# Installation 
 
-Ensure swig is installed (`sudo apt install swig`) and then build this extension by executing `./build.sh`
+## tl;dr
+```
+git clone https://github.com/meedan/ThreatExchange.git
+cd ThreatExchange
+git checkout swig
+
+cd tmk/cpp
+make
+
+cd ../swig/
+python setup.py build
+python setup.py install
+
+```
+
+## Longer version
+First build the TMK C++ code per the instructions at ../cpp/ (namely run `make` in that directory). 
+You may need to update the location of ffmpeg in Makefile. This will build a file called `libtmk.a`
+
+Ensure swig is installed (`sudo apt install swig`) and then build this extension.
+You can build the extension only in the current directory for testing, etc. by executing `python setup.py build_ext -i`
+To build and install system wide, run `python setup.py build` followed by `python setup.py install`
 
 Check the location of ffmpeg in `minimal_example.py` and then run it. 
 You should see a level1 score of 0.953346 and a level2 score of 0.962158
+
 
 # Usage
 
