@@ -12,6 +12,7 @@ cd tmk/cpp
 make
 
 cd ../swig/
+python setup.py build_ext -i
 python setup.py build
 python setup.py install
 
@@ -22,7 +23,7 @@ First build the TMK C++ code per the instructions at ../cpp/ (namely run `make` 
 You may need to update the location of ffmpeg in Makefile. This will build a file called `libtmk.a`
 
 Ensure swig is installed (`sudo apt install swig`) and then build this extension.
-You can build the extension only in the current directory for testing, etc. by executing `python setup.py build_ext -i`
+First build the extension in the current directory by executing `python setup.py build_ext -i`. This also generates `tmkpy.py` which is needed for building and installing system wide.
 To build and install system wide, run `python setup.py build` followed by `python setup.py install`
 
 Check the location of ffmpeg in `minimal_example.py` and then run it. 
